@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using MRSTWEb.BuisnessLogic.BuisnessModels;
 using MRSTWEb.BuisnessLogic.DTO;
 using MRSTWEb.BuisnessLogic.Interfaces;
+using MRSTWEb.BuisnessLogic.Services;
 using MRSTWEb.Models;
 using System;
 using System.Collections.Generic;
@@ -23,10 +25,52 @@ namespace MRSTWEb.Controllers
             var booksDTO = cartService.GetBooks();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookDTO, BookViewModel>()).CreateMapper();
             var books = mapper.Map<IEnumerable<BookDTO>, List<BookViewModel>>(booksDTO);
-            ViewBag.Books = books;  
+            ViewBag.Books = books; 
+  
+            var cart = cartService.GetCart();
 
-            return View();
+            var book = new Item
+            {
+                Book = new BookDTO(),
+                Quantity = 0,
+            };
+            ViewBag.Cart = cart;    
+
+            return View(book);
         }
+        /*     public ActionResult RemoveFromTheCart(int BookId)
+             {
+                 cartService.RemoveFromTheCart(BookId);
 
+                 List<Item> cartItems = cartService.GetCart();
+                 return RedirectToAction("Cart");
+             }
+
+             [HttpPost]
+             public ActionResult AddToCart(int BookId)
+             {
+                 cartService.AddToCart(BookId);
+                 return RedirectToAction("Cart");
+             }*/
+        [HttpPost]
+        public ActionResult AddToCart(int BookId)
+        {
+            cartService.AddToCart(BookId);
+            var cart = cartService.GetCart();   
+            return PartialView("_addToCartForm",cart);
+        }
+        [HttpPost]
+        public ActionResult RemoveFromTheCart(int BookId)
+        {
+            cartService.RemoveFromTheCart(BookId);
+            var cart = cartService.GetCart();
+
+            return PartialView("_addToCartForm",cart);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            cartService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

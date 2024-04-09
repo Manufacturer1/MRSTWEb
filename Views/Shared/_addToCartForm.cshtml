@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<MRSTWEb.BuisnessLogic.BuisnessModels.Item>
+
+@foreach (var item in Model)
+{
+
+<div class="product">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="@item.Book.PathImage" style="height:200px" alt="@item.Book.PathImage" />
+        </div>
+        <div class="col-md-8">
+            <div class="info">
+                <div class="row">
+                    <div class="col-md-5 product-name">
+                        <div class="product-name">
+                            <div class="product-info">
+                                <div>Title: <span class="value">@item.Book.Title</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 quantity">
+                        <label for="quantity">Quantity:</label>
+                        <input id="quantity" type="number" value="@item.Quantity" class="form-control quantity-input">
+                    </div>
+                    <div class="col-md-3 price">
+                        <span>@item.Book.Price</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                @using (Ajax.BeginForm("RemoveFromTheCart", "Buy", new { BookId = item.Book.Id }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "cartItems",
+                    InsertionMode = InsertionMode.Replace
+                }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger" style="padding:10px;font-size:15px;border-radius:3px">Remove</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}

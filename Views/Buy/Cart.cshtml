@@ -1,4 +1,4 @@
-﻿
+﻿@model MRSTWEb.BuisnessLogic.BuisnessModels.Item
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_MainPageLayout.cshtml";
@@ -11,42 +11,16 @@
         <div class="content">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
-                    <div class="items">
-
-                        <div class="product">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <!--Image-->
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="info">
-                                        <div class="row">
-                                            <div class="col-md-5 product-name">
-                                                <div class="product-name">
-                                                    <div class="product-info">
-                                                        <div>Title: <span class="value"></span></div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 quantity">
-                                                <label for="quantity">Quantity:</label>
-                                                <input id="quantity" type="number" value="1" class="form-control quantity-input">
-                                            </div>
-                                            <div class="col-md-3 price">
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="items" id="cartItems">
+                          @Html.Partial("_addToCartForm", (IEnumerable<MRSTWEb.BuisnessLogic.BuisnessModels.Item>)ViewBag.Cart)
+                    
+                      </div>
 
                 </div>
                 <div class="col-md-12 col-lg-4">
                     <div class="summary">
                         <h3>Summary</h3>
+
                         <div class="summary-item"><span class="text">Subtotal</span><span class="price">$0</span></div>
                         <div class="summary-item"><span class="text">Shipping</span><span class="price">$0</span></div>
                         <div class="summary-item"><span class="text">Total</span><span class="price">$0</span></div>
@@ -58,7 +32,7 @@
     </div>
 </section>
 
-<section class="py-5 bg-light" style="margin-bottom:100px"> 
+<section class="py-5 bg-light" style="margin-bottom:100px">
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Related products</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -67,26 +41,35 @@
             {
                 if (items < 4)
                 {
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="@item.PathImage" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder" style="font-size:20px">@item.Title</h5> 
-                            <!-- Product price-->
-                            <p style="font-size:17px">$@item.Price</p>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="@item.PathImage" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                              
+                                    <h5 class="fw-bolder" style="font-size:20px">@item.Title</h5>
+                                   
+                                    <p style="font-size:17px">$@item.Price</p>
+
+                                </div>
+                            </div>
                        
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                @using (Ajax.BeginForm("AddToCart", "Buy", new { BookId = item.Id }, new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "cartItems",
+                                    InsertionMode = InsertionMode.Replace
+                                }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn add-to-cart">Add To Cart</button>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add To Cart</a></div>
-                    </div>
-                </div>
-            </div>
                     items++;
                 }
             }
@@ -227,3 +210,7 @@
                     text-align: center;
                 }
 </style>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>*@

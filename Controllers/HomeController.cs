@@ -40,6 +40,11 @@ namespace MRSTWEb.Controllers
 
             return View();
         }
-   
+        protected override void Dispose(bool disposing)
+        {
+            cartService.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }
