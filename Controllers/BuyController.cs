@@ -38,20 +38,6 @@ namespace MRSTWEb.Controllers
 
             return View(book);
         }
-        /*     public ActionResult RemoveFromTheCart(int BookId)
-             {
-                 cartService.RemoveFromTheCart(BookId);
-
-                 List<Item> cartItems = cartService.GetCart();
-                 return RedirectToAction("Cart");
-             }
-
-             [HttpPost]
-             public ActionResult AddToCart(int BookId)
-             {
-                 cartService.AddToCart(BookId);
-                 return RedirectToAction("Cart");
-             }*/
         [HttpPost]
         public ActionResult AddToCart(int BookId)
         {
@@ -67,6 +53,7 @@ namespace MRSTWEb.Controllers
 
             return PartialView("_addToCartForm",cart);
         }
+    
         protected override void Dispose(bool disposing)
         {
             cartService.Dispose();

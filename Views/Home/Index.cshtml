@@ -96,7 +96,8 @@
                         {
                             HttpMethod = "POST",
                             UpdateTargetId = "cartItems",
-                            InsertionMode = InsertionMode.Replace
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "updateTotalPriceAndItemCount('add')"
                         }))
                         {
                             @Html.AntiForgeryToken()
@@ -500,5 +501,3 @@
     </div>
 
 </section>
-<script src="~/Scripts/jquery-3.7.1.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

@@ -34,11 +34,12 @@
                 {
                     HttpMethod = "POST",
                     UpdateTargetId = "cartItems",
-                    InsertionMode = InsertionMode.Replace
+                    InsertionMode = InsertionMode.Replace,
+                    OnSuccess = "updateTotalPriceAndItemCount('remove')"
                 }))
                 {
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger" style="padding:10px;font-size:15px;border-radius:3px">Remove</button>
+                    <button type="submit" class="btn-danger" style="padding:10px;font-size:15px;border-radius:3px">Remove</button>
                 }
             </div>
         </div>
