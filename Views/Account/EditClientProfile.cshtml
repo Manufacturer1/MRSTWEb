@@ -1,0 +1,46 @@
+﻿@model MRSTWEb.Models.EditModel
+@{
+    ViewBag.Title = "EditClientProfile";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/Custom-edit-form.css">
+
+<div class="container" style="margin-top: 100px;margin-bottom:150px">
+    <div class="form-container">
+        <h2>Edit Client Profile</h2>
+
+        @using (Html.BeginForm("EditClientProfile", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName)
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        }
+    </div>
+</div>
+

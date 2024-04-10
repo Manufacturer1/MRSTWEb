@@ -57,12 +57,72 @@ namespace MRSTWEb.Controllers
         [HttpGet]
         [Authorize(Roles ="user")]
         [SessionTimeout]
-     /*   public async Task<ActionResult> EditClientProfile()
+        public async Task<ActionResult> EditClientProfile()
         {
             var user = await userService.GetUserById(User.Identity.GetUserId());
-            var editModel = 
-        }*/
-  
+            var editModel = new EditModel
+            {
+                UserName = user.UserName,
+                Name = user.Name,
+                Address = user.Address,
+                Email = user.Email,
+            };
+            return View(editModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles ="user")]
+        [SessionTimeout]
+        public async Task<ActionResult> EditClientProfile(EditModel model)
+        {
+            var user = await userService.GetUserById(User.Identity.GetUserId());
+            if(user == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+
+            if (ModelState.IsValid)
+            {
+                // Update the properties only if the model properties are not empty
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+                    user.Email = model.Email;
+                }
+                if (!string.IsNullOrEmpty(model.Name))
+                {
+                    user.Name = model.Name;
+                }
+
+                if (!string.IsNullOrEmpty(model.Address))
+                {
+                    user.Address = model.Address;
+                }
+
+
+                if (!string.IsNullOrEmpty(model.UserName))
+                {
+                    user.UserName = model.UserName;
+                }
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+
+                }
+                OperationDetails operationDetails = await userService.UpdateClient(user);
+
+                if (operationDetails.Succeeded)
+                {
+                    if (User.IsInRole("admin"))
+                    {
+                        return RedirectToAction("AdminDashboard");
+                    }
+                    else
+                    {
+                        return RedirectToAction("ClientProfile");
+                    }
+                }
+            }
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)

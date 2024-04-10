@@ -169,6 +169,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookViewModel.cs" />
+    <Compile Include="Models\EditModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -194,6 +195,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\css\cart.css" />
+    <Content Include="Content\css\Custom-edit-form.css" />
     <Content Include="Content\css\custom-login-form.css" />
     <Content Include="Content\css\custom-profile.css" />
     <Content Include="Content\style.css" />
@@ -282,6 +284,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ClientProfile.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\EditClientProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
