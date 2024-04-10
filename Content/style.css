@@ -196,7 +196,7 @@ section{
     background:var(--dark-color);
 }
 
-.login-form-container{
+/*.login-form-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -287,7 +287,7 @@ section{
     font-size: 5rem;
     color:var(--black);
     cursor: pointer;
-}
+}*/
 
 .home-container{
     background: url(../Images/banner-bg.jpg) no-repeat;

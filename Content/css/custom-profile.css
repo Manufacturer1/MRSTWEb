@@ -1,0 +1,43 @@
+﻿.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+
+.user-profile {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+    .user-profile img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 5px solid #fff;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-profile h5 {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .user-profile p {
+        color: #666;
+        
+    }
+
+.edit-profile-btn {
+    background-color: #007bff;
+    border: none;
+}
+
+    .edit-profile-btn:hover {
+        background-color: #0056b3;
+    }
