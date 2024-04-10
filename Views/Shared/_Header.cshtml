@@ -18,18 +18,36 @@
 
         @if (Request.IsAuthenticated)
         {
-            <ul class="navbar-nav ml-auto" style="display: flex; align-items: center;">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" style="font-size:20px;" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Hello, @User.Identity.Name!
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="@Url.Action("ClientProfile","Account")"> Client Profile</a>
-                        <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">Change Password</a>
-                    </div>
-                </li>
-            </ul>
-            <a  style="font-size:18px;" href="@Url.Action("Logout","Account")">Logout</a>
+            if (User.IsInRole("user"))
+            {
+                <ul class="navbar-nav ml-auto" style="display: flex; align-items: center;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="font-size:20px;" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, @User.Identity.Name!
+                        </a>
+                        <div class="dropdown-menu dropdown-width" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="@Url.Action("ClientProfile", "Account",new { Id = User.Identity.GetUserId() })"> Client Profile</a>
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword", "Account")">Change Password</a>
+                        </div>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <ul class="navbar-nav ml-auto" style="display: flex; align-items: center;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="font-size:20px;" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, @User.Identity.Name!
+                        </a>
+                        <div class="dropdown-menu dropdown-width" aria-labelledby="adminDropdown">
+                            <a class="dropdown-item" href="@Url.Action("AdminDashboard", "Account")"> Admin Profile</a>
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword", "Account")">Change Password</a>
+
+                        </div>
+                    </li>
+                </ul>
+            }
+            <a style="font-size:18px;" href="@Url.Action("Logout","Account")">Logout</a>
         }
         else
         {
@@ -53,3 +71,4 @@
         font-size: 18px !important;
     }
 </style>
+

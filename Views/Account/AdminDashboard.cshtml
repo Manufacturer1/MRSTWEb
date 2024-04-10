@@ -1,0 +1,24 @@
+﻿@model MRSTWEb.Models.UserModel
+@{
+    ViewBag.Title = "AdminDashboard";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/custom-profile.css">
+<section class="vh-100" style="margin-top: 100px; margin-bottom:150px">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="user-profile text-center">
+                    <img src="~/Images/Admin.jpg" class="img-fluid" alt="Admin Image">
+                    <h5 class="mb-3" style="font-size:20px">@Model.Name</h5>
+                    <p class="mb-2" style="font-size:16px"><strong>User Name:</strong> @Model.UserName</p>
+                    <p class="mb-2" style="font-size:16px"><strong>Address:</strong> @Model.Address</p>
+                    <p class="mb-4" style="font-size:16px"><strong>Email:</strong> @Model.Email</p>
+                    @Html.ActionLink("Edit", "EditClientProfile", "Account", null, new { @class = "btn btn-primary edit" })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

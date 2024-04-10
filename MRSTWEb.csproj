@@ -203,6 +203,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Admin.jpg" />
     <Content Include="Images\banner-bg.jpg" />
     <Content Include="Images\blog-1.jpg" />
     <Content Include="Images\blog-2.jpg" />
@@ -307,6 +308,7 @@
     <Content Include="Views\Shared\_Scripts.cshtml" />
     <Content Include="Scripts\js\.DS_Store" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\AdminDashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

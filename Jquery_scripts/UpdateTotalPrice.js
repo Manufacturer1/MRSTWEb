@@ -19,18 +19,18 @@ $(document).ready(function () {
  
 });
 function displayCartItemCount() {
-    var cartItemCount = localStorage.getItem('cartItemCount');
+    var cartItemCount = localStorage.getItem('cartItemCount') | 0;
 
     if (cartItemCount !== null && cartItemCount !== undefined) {
         $('#cartItemCount').text(cartItemCount);
     } else {
         cartItemCount = 0;
     }
-
+   
     $('#cartItemCount').text(cartItemCount);
 }
 function updateCartItemCount(action) {
-    var cartItemCount = localStorage.getItem("cartItemCount");
+    var cartItemCount = localStorage.getItem("cartItemCount") | 0;
 
    
     cartItemCount = parseInt(cartItemCount);
@@ -44,6 +44,7 @@ function updateCartItemCount(action) {
             cartItemCount = 0;
         }
     }
+    console.log(cartItemCount);
     $('#cartItemCount').text(cartItemCount);
 
     localStorage.setItem('cartItemCount', cartItemCount);

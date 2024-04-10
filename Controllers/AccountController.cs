@@ -42,6 +42,18 @@ namespace MRSTWEb.Controllers
             this.cartService = cartService;
         }
 
+
+
+        [SessionTimeout]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> AdminDashboard()
+        {
+            var userAdmin = await GetUserAdmin();
+            var adminModel = MapToUserModel(userAdmin);
+
+            return View(adminModel);
+        }
+
         [HttpGet]
         [SessionTimeout]
         [Authorize]
@@ -93,7 +105,7 @@ namespace MRSTWEb.Controllers
         }
 
 
-        [Authorize(Roles ="user")]
+        [Authorize]
         [SessionTimeout]
         public async Task<ActionResult> ClientProfile()
         {
@@ -107,7 +119,6 @@ namespace MRSTWEb.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles ="user")]
         [SessionTimeout]
         public async Task<ActionResult> EditClientProfile()
         {
@@ -192,12 +203,14 @@ namespace MRSTWEb.Controllers
                     var userRole = claim.FindFirst(ClaimTypes.Role)?.Value;
                     if (userRole == "admin")
                     {
+                        Session["UserId"] = "admin";
                         authenticationManager.SignOut();
                         authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("AdminDashboard", "Account");
                     }
-                    else
+                    else if(userRole == "user")
                     {
+                        Session["UserId"] = "user";
                         authenticationManager.SignOut();
                         authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
                         return RedirectToAction("ClientProfile","Account");
@@ -240,7 +253,7 @@ namespace MRSTWEb.Controllers
                    
                 };
                 OperationDetails operationDetalis = await userService.Create(userDTO);
-                if (operationDetalis.Succeeded) return RedirectToAction("Index");
+                if (operationDetalis.Succeeded) return RedirectToAction("Login");
                 else ModelState.AddModelError(operationDetalis.Property, operationDetalis.Message);
             }
             return View(model);
@@ -289,6 +302,11 @@ namespace MRSTWEb.Controllers
                 Address = "Chisinau,str.Studentilor",
                 Role = "admin",
             };
+        }
+        private async Task<UserDTO> GetUserAdmin()
+        {
+            var userId = User.Identity.GetUserId();
+            return await userService.GetUserById(userId);
         }
         protected override void Dispose(bool disposing)
         {
