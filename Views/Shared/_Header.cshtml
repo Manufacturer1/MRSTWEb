@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 
 <section class="header-1">
 
@@ -9,7 +9,7 @@
         <label for="search-box" class="fas fa-search"></label>
     </form>
 
-    <div class="icons">
+    <div class="icons" style="display: flex; align-items: center;">
         <div id="search-btn" class="fas fa-search"></div>
         <a href="#" class="fas fa-heart"></a>
         <a href="@Url.Action("Cart", "Buy")" class="fas fa-shopping-cart">
@@ -18,15 +18,23 @@
 
         @if (Request.IsAuthenticated)
         {
-            <a style="font-size:17px;" href="@Url.Action("ClientProfile","Account")">Hello, @User.Identity.Name</a>
-            <a style="font-size:17px;" href="@Url.Action("Logout","Account")">Logout</a>
-
+            <ul class="navbar-nav ml-auto" style="display: flex; align-items: center;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="font-size:20px;" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, @User.Identity.Name!
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="@Url.Action("ClientProfile","Account")"> Client Profile</a>
+                        <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">Change Password</a>
+                    </div>
+                </li>
+            </ul>
+            <a  style="font-size:18px;" href="@Url.Action("Logout","Account")">Logout</a>
         }
         else
         {
             <a id="login-btn" class="fas fa-user" href="@Url.Action("Login", "Account")"></a>
         }
-
     </div>
 
 </section>
@@ -40,3 +48,8 @@
         <a href="#blogs">blogs</a>
     </nav>
 </div>
+<style>
+    .dropdown-item {
+        font-size: 18px !important;
+    }
+</style>

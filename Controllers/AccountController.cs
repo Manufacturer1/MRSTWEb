@@ -10,6 +10,7 @@ using MRSTWEb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -40,6 +41,57 @@ namespace MRSTWEb.Controllers
         {
             this.cartService = cartService;
         }
+
+        [HttpGet]
+        [SessionTimeout]
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> ChangePassword(PasswordModel model)
+        {
+            var user = await userService.GetUserById(User.Identity.GetUserId());
+            if (user == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var passwordHasher = new PasswordHasher();
+            var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user.Password, model.CurrentPassword);
+
+            if (passwordVerificationResult == PasswordVerificationResult.Success)
+            {
+                var newPasswordHash = passwordHasher.HashPassword(model.Password);
+                user.Password = newPasswordHash;
+                OperationDetails operationDetails = await userService.UpdateClient(user);
+
+                if (operationDetails.Succeeded)
+                {
+                    ViewBag.PasswordChanged = true;
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error changing password. Please try again.");
+                    return View(model);
+                }
+            }
+            else
+            {
+
+                ModelState.AddModelError("", "The current password is incorrect.");
+                return View(model);
+            }
+
+
+        }
+
 
         [Authorize(Roles ="user")]
         [SessionTimeout]

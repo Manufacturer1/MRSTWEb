@@ -27,7 +27,7 @@
     <header class="header"> @Html.Partial("_Header") </header>
 
     <!-- ======= Bottom navbar ======= -->
-    <nav class="bottom-navbar"> @Html.Partial("_BottomNavbar") </nav>
+@*    <nav class="bottom-navbar"> @Html.Partial("_BottomNavbar") </nav>*@
   
     <!-- ======= Login form container ======= -->
 
@@ -45,6 +45,7 @@
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Jquery_scripts/UpdateTotalPrice.js"></script>
+    @Html.Partial("_Scripts")
 
     @Scripts.Render("~/bundles/main/js")
 
