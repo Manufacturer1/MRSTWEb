@@ -14,6 +14,9 @@
         <div class="col-md-6">
             @using (Html.BeginForm("Checkout", "Buy", FormMethod.Post))
             {
+
+                @Html.AntiForgeryToken()
+
                 @Html.LabelFor(model => model.FirstName)
                 @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "Enter your First Name" })
 
@@ -51,9 +54,9 @@
                 <div class="summary">
                     <h3>Summary</h3>
 
-                    <div class="summary-item"><span class="text">Subtotal</span><span >$@ViewBag.Subtotal.00</span></div>
+                    <div class="summary-item"><span class="text">Subtotal</span><span >$@ViewBag.Subtotal</span></div>
                     <div class="summary-item"><span class="text">Shipping</span><span class="delivery">$0.00</span></div>
-                    <div class="summary-item"><span class="text">Total</span><span >$@ViewBag.Total.00</span></div>
+                    <div class="summary-item"><span class="text">Total</span><span >$@ViewBag.Total</span></div>
 
                 </div>
             </div>

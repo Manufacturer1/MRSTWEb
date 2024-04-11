@@ -74,3 +74,16 @@
     }
 </style>
 
+@if (!Request.IsAuthenticated)
+{
+
+<script>
+ 
+    function ClearCountItem() {
+        document.getElementById('cartItemCount').textContent = 0;
+        localStorage.clear();
+    }
+    ClearCountItem();
+</script>
+    Session.Clear();
+}

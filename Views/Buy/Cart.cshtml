@@ -24,17 +24,27 @@
                         <div class="summary-item"><span class="text">Subtotal</span><span class="price">$0.00</span></div>
                         <div class="summary-item"><span class="text">Shipping</span><span class="delivery">$0.00</span></div>
                         <div class="summary-item"><span class="text">Total</span><span id="totalPrice" class="price">$0.00</span></div>
-                    
-                        @Html.ActionLink("Checkout","Checkout","Buy",null,new {@class="btn btn-primary btn-lg btn-block"})
+
+                        @Html.ActionLink("Checkout", "Checkout", "Buy", null, new { @class = "btn btn-primary btn-lg btn-block" })
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+@if (!Request.IsAuthenticated)
+{
+    <div style="display: flex; justify-content: center;">
+        <div id="InfoContainer" class="alert alert-info alert-dismissible fade show" role="contentinfo" style="width: 600px; text-align: center; font-size: 18px;">
+            <strong>You have to be Logged In!</strong> Please Log In in order to buy our products.
+            <button type="button" class="btn btn-primary" style="padding:3px" data-bs-dismiss="alert" aria-label="Close">Close</button>
+        </div>
+    </div>
+}
 
 <section class="py-5 bg-light" style="margin-bottom:100px">
-    <div class="container px-4 px-lg-5 mt-5">s
+    <div class="container px-4 px-lg-5 mt-5">
+        s
         <h2 class="fw-bolder mb-4">Related products</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             @{ byte items = 0;}
@@ -80,7 +90,24 @@
     </div>
 </section>
 
-<link rel="stylesheet" type="text/css" href="~/Content/css/cart.css"/>
+<link rel="stylesheet" type="text/css" href="~/Content/css/cart.css" />
+
+@if (!Request.IsAuthenticated)
+{
+
+    <script>
+        function clearLocalStorage() {
 
 
+            document.getElementById("cartItemCount").textContent = 0;
 
+            var cart = document.getElementById("cartItems");
+            cart.innerHTML = '';
+
+            console.log("clearing local storage!")
+            localStorage.clear();
+        }
+        clearLocalStorage();
+    </script>
+    Session.Clear();
+}

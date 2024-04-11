@@ -1,0 +1,72 @@
+﻿@model MRSTWEb.Models.OrderViewModel
+@{
+    ViewBag.Title = "SuccessfullOrder";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+<div class="container" style="margin-top:100px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Congratulations!</h4>
+                <p>Your order has been successfully placed.</p>
+                <hr>
+                <h5>Order Details:</h5>
+                <ul style="padding:20px;">
+                    <li><strong>Order ID:</strong> @Model.Id</li>
+                    <li><strong>Order Date:</strong> @Model.BuyingTime.ToString("MMMM dd, yyyy")</li>
+                    <li><strong>Customer Name:</strong> @Model.FirstName @Model.LastName</li>
+                    <li><strong>Email:</strong> @Model.Email</li>
+                    <li><strong>Phone:</strong> @Model.Phone</li>
+                    <li><strong>Shipping Address:</strong> @Model.Address, @Model.City, @Model.PostCode</li>
+                    <li><strong>Total Amount:</strong> $@Model.TotalSumToPay</li>
+                </ul>
+                <hr>
+                <h5>Ordered Products:</h5>
+                <div class="row">
+                    @foreach (var orderItem in ViewBag.CartItems)
+                    {
+                        <div class="col-md-4" >
+                            <div class="product-item">
+                                <h6>@orderItem.Title</h6>
+                                <img src="@orderItem.PathImage" alt="@orderItem.Title" style="width: 100px; height: 100px;">
+                                <p>Price: $@orderItem.Price</p>
+                                <p>Quantity: @orderItem.Quantity</p>
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <p>Total: <span class="text-bold text-primary">$@Model.TotalSumToPay</span> </p>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function clearLocalStorage() {
+
+
+            document.getElementById("cartItemCount").textContent = 0;
+            var cart = $("#cartItems");
+            cart.empty();
+
+            console.log("clearing local storage!")
+            localStorage.clear();
+        }
+        clearLocalStorage();
+    </script>
+}
+<style>
+    .row{
+        font-size:20px;
+    }
+    h6{
+        font-size:20px;
+    }
+    h5{
+        font-size:22px;
+    }
+</style>
+
