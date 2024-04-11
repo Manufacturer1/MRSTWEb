@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MRSTWEb.Models.UserModel>
+@{
+    ViewBag.Title = "OtherUsers";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+<section class="ftco-section ftco-cart" style="margin-top:100px;margin-bottom:150px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <h2>Other Users</h2>
+
+                <table class="table   table-bordered">
+                    <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            if (user.Name != "Application Admin")
+                            {
+                                <tr class="text-center">
+                                    <td>@user.UserName</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.Name</td>
+                                    <td>@user.Address</td>
+                                    <td>
+                                        <!--<div class="btn-group" role="group" aria-label="User Actions">-->
+                                        <!-- Delete user form -->
+                                        <!--@using (Html.BeginForm("DeleteUser", "Account", new { username = user.UserName }, FormMethod.Post, new { id = "removeUserForm" }))
+                                            {
+                                                <p class="action-link" onclick="confirmDelete()">Delete</p>
+                                            }
+
+                                            /
+                                            @Html.ActionLink("Reservations", "ReservationDetails", new { userId = user.Id }, new { @class = "action-link" })
+                                            /
+                                            @Html.ActionLink("Orders", "OrdersDetails", "Account", new { userId = user.Id }, new { @class = "action-link" })
+                                        </div>-->
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    td {
+        text-align: center;
+        color: #333; 
+        padding: 10px; 
+        font-size:20px;
+    }
+
+    th {
+        text-align: center;
+        color: #fff; 
+        background-color: #007bff; 
+        padding: 10px; 
+        font-size:22px;
+    }
+
+    .action-link {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        .action-link:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+</style>
+

@@ -42,7 +42,13 @@ namespace MRSTWEb.Controllers
             this.cartService = cartService;
         }
 
-
+        [Authorize(Roles ="admin")]
+        [SessionTimeout]
+        public async Task<ActionResult> OtherUsers()
+        {
+            var users = await GetAllUsers();
+            return View(users); 
+        }
 
         [SessionTimeout]
         [Authorize(Roles = "admin")]
@@ -308,12 +314,16 @@ namespace MRSTWEb.Controllers
             var userId = User.Identity.GetUserId();
             return await userService.GetUserById(userId);
         }
+
+
         protected override void Dispose(bool disposing)
         {
             userService.Dispose();
             cartService.Dispose();
             base.Dispose(disposing);
         }
+
+
         #endregion
     }
 }
