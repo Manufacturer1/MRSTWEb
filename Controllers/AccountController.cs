@@ -44,6 +44,27 @@ namespace MRSTWEb.Controllers
 
         [Authorize(Roles ="admin")]
         [SessionTimeout]
+        public async Task<ActionResult> DeleteUser(string userId)
+        {
+            if(userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var result = await userService.DeleteUserByUserId(userId);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "User deleted successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete user.";
+            }
+            return RedirectToAction("OtherUsers");
+        }
+
+        [Authorize(Roles ="admin")]
+        [SessionTimeout]
         public async Task<ActionResult> OtherUsers()
         {
             var users = await GetAllUsers();
