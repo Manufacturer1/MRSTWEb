@@ -24,7 +24,8 @@
                         <div class="summary-item"><span class="text">Subtotal</span><span class="price">$0.00</span></div>
                         <div class="summary-item"><span class="text">Shipping</span><span class="delivery">$0.00</span></div>
                         <div class="summary-item"><span class="text">Total</span><span id="totalPrice" class="price">$0.00</span></div>
-                        <button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+                    
+                        @Html.ActionLink("Checkout","Checkout","Buy",null,new {@class="btn btn-primary btn-lg btn-block"})
                     </div>
                 </div>
             </div>
@@ -33,7 +34,7 @@
 </section>
 
 <section class="py-5 bg-light" style="margin-bottom:100px">
-    <div class="container px-4 px-lg-5 mt-5">
+    <div class="container px-4 px-lg-5 mt-5">s
         <h2 class="fw-bolder mb-4">Related products</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             @{ byte items = 0;}

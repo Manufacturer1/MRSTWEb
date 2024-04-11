@@ -18,12 +18,12 @@ namespace MRSTWEb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
+            NinjectModule orderModule = new OrderModule();
             NinjectModule serviceModule = new ServiceModule("Connection");
             NinjectModule cartModule = new CartModule();
 
 
-            var kernel = new StandardKernel(serviceModule,cartModule);
+            var kernel = new StandardKernel(serviceModule,cartModule,orderModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

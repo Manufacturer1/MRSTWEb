@@ -1,0 +1,63 @@
+﻿@model MRSTWEb.Models.OrderViewModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/Checkout-style.css" />
+
+<div class="container">
+    <h2>Checkout</h2>
+
+    <!-- Address Form -->
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Checkout", "Buy", FormMethod.Post))
+            {
+                @Html.LabelFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "Enter your First Name" })
+
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Enter your LastName" })
+
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter your email" })
+
+                @Html.LabelFor(model => model.Phone)
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Enter your Phone Number" })
+
+                @Html.LabelFor(model => model.Address)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter your address" })
+
+                @Html.LabelFor(model => model.City)
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "Enter your city" })
+
+                @Html.LabelFor(model => model.PostCode)
+                @Html.TextBoxFor(model => model.PostCode, new { @class = "form-control", placeholder = "Enter your post code" })
+
+
+
+
+
+                <button type="submit" class="btn btn-primary mt-3">Submit Order</button>
+            }
+        </div>
+    </div>
+
+    <!-- Cart Total -->
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 col-lg-4">
+                <div class="summary">
+                    <h3>Summary</h3>
+
+                    <div class="summary-item"><span class="text">Subtotal</span><span >$@ViewBag.Subtotal.00</span></div>
+                    <div class="summary-item"><span class="text">Shipping</span><span class="delivery">$0.00</span></div>
+                    <div class="summary-item"><span class="text">Total</span><span >$@ViewBag.Total.00</span></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

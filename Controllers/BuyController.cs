@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity.Owin;
 using MRSTWEb.BuisnessLogic.BuisnessModels;
 using MRSTWEb.BuisnessLogic.DTO;
 using MRSTWEb.BuisnessLogic.Interfaces;
 using MRSTWEb.BuisnessLogic.Services;
+using MRSTWEb.Filters;
 using MRSTWEb.Models;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,34 @@ using System.Web.Mvc;
 
 namespace MRSTWEb.Controllers
 {
+    [SessionTimeout]
     public class BuyController : Controller
     {
         private ICartService cartService;
-        public BuyController(ICartService _cartService)
+        private IOrderService orderService;
+        private IUserService UserService
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
+            }
+        }
+        public BuyController(ICartService _cartService, IOrderService orderService)
         {
             cartService = _cartService;
+            this.orderService = orderService;
         }
+
+        [HttpGet]
+        public ActionResult Checkout()
+        {
+           var total = cartService.CalculateTotalPrice();
+            var subtotal = total;
+            ViewBag.Total = total; ViewBag.Subtotal = subtotal;
+
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Cart() {
 
@@ -53,6 +76,8 @@ namespace MRSTWEb.Controllers
 
             return PartialView("_addToCartForm",cart);
         }
+
+        
     
         protected override void Dispose(bool disposing)
         {

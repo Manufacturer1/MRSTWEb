@@ -1,0 +1,114 @@
+﻿.container {
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #333;
+    font-size: 21px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+.container {
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #333;
+}
+
+label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+.summary {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 17px;
+}
+
+    .summary h3 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+    .summary-item .text {
+        flex: 1;
+    }
+
+    .summary-item .price {
+        flex-shrink: 0;
+    }
