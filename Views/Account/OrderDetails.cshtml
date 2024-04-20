@@ -1,0 +1,86 @@
+﻿@model MRSTWEb.Models.UserModel
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Views/Shared/_MainPageLayout.cshtml";
+}
+
+<section class="ftco-section ftco-cart" style="margin-top:100px;margin-bottom:150px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <h2>Orders:</h2>
+                @if (Model.Orders.Any())
+                {
+                <table class="table  table-bordered">
+                    <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>Order ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Buying time</th>
+                            <th>Total Sum</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                                <tr class="text-center">
+                                    <td>@order.Id</td>
+                                    <td>@order.FirstName</td>
+                                    <td>@order.LastName</td>
+                                    <td>@order.Phone</td>
+                                    <td>@order.Email</td>
+                                    <td>@(order.Address), @(order.City), @(order.PostCode)</td>
+                                    <td>@order.BuyingTime</td>
+                                    <td>@order.TotalSumToPay</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="@Url.Action("ItemsBought", "Account", new { orderId = order.Id })">View Items</a>
+                                    </td>
+                                </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    td {
+        text-align: center;
+        color: #333;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    th {
+        text-align: center;
+        color: #fff;
+        background-color: #007bff;
+        padding: 10px;
+        font-size: 22px;
+    }
+
+    .action-link {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        .action-link:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+

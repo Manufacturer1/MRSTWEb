@@ -22,6 +22,7 @@ namespace MRSTWEb.Controllers
     public class AccountController : Controller
     {
         private ICartService cartService;
+        private IOrderService orderService;
         private IUserService userService
         {
             get
@@ -37,9 +38,10 @@ namespace MRSTWEb.Controllers
             }
         }
 
-        public AccountController(ICartService cartService)
+        public AccountController(ICartService cartService,IOrderService orderService)
         {
             this.cartService = cartService;
+            this.orderService = orderService;
         }
 
         [Authorize(Roles ="admin")]
@@ -163,7 +165,7 @@ namespace MRSTWEb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles ="user")]
+        [Authorize(Roles = "user, admin")]
         [SessionTimeout]
         public async Task<ActionResult> EditClientProfile(EditModel model)
         {
@@ -286,6 +288,12 @@ namespace MRSTWEb.Controllers
             return View(model);
         }
 
+        [Authorize(Roles ="admin")]
+        public async Task<ActionResult> OrderDetails(string userId)
+        {
+            var user = await GetUserWithOrders(userId);
+            return View(user);
+        }
 
         #region Helpers
         private async Task SetInitialData()
@@ -336,7 +344,44 @@ namespace MRSTWEb.Controllers
             return await userService.GetUserById(userId);
         }
 
+        private async Task<UserModel> GetUserWithOrders(string userId)
+        {
+            var userDto = await userService.GetUserById(userId);
+            var ordersDto = orderService.GetOrdersByUserId(userId);
+            var user = new UserModel();
+            if(userDto != null)
+            {
+               user = MapToUserModel(userDto);
+                AddOrdersToUser(user, ordersDto);   
 
+            }
+            return user;
+        }
+        private OrderViewModel MapOrderToOrderViewModel(OrderDTO orderDTO)
+        {
+            return new OrderViewModel
+            {
+                Id = orderDTO.Id,
+                FirstName = orderDTO.FirstName,
+                LastName = orderDTO.LastName,
+                Address = orderDTO.Address,
+                Phone = orderDTO.Phone,
+                PostCode = orderDTO.PostCode,
+                BuyingTime = orderDTO.BuyingTime,
+                Email = orderDTO.Email,
+                City = orderDTO.City,
+                ApplicationUserId = orderDTO.ApplicationUserId,
+                TotalSumToPay = orderDTO.TotalSumToPay,
+                Items = orderDTO.Items,
+            };
+        }
+        private void AddOrdersToUser(UserModel user,IEnumerable<OrderDTO> ordersDto)
+        {
+            if(ordersDto != null)
+            {
+                user.Orders = ordersDto.Select(o => MapOrderToOrderViewModel(o)).ToList();
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             userService.Dispose();

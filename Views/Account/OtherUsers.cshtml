@@ -32,11 +32,13 @@
                                     <td>@user.Address</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="User Actions">
-                                            @using (Html.BeginForm("DeleteUser", "Account", new { userId = user.Id }, FormMethod.Post, new { @class = "removeUserForm" }))
+                                            @using (Html.BeginForm("DeleteUser", "Account", new { userId = user.Id }, FormMethod.Post, new { @class = "removeUserForm-" + user.Id }))
                                             {
                                                 <input type="hidden" name="userId" value="@user.Id" />
                                                 <p class="action-link" onclick="confirmDelete('@user.Id')">Delete</p>
                                             }
+                                            /
+                                            @Html.ActionLink("Orders", "OrdersDetails", "Account", new { userId = user.Id }, new { @class = "action-link" })
                                         </div>
                                     </td>
                                 </tr>
@@ -87,7 +89,7 @@
 <script>
     function confirmDelete(userId) {
         if (confirm("Are you sure you want to remove the User?")) {
-            var form = document.querySelector(".removeUserForm");
+            var form = document.querySelector(".removeUserForm-" + userId);
             if (form) {
                 form.submit();
             } else {

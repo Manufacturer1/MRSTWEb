@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace MRSTWEb.Controllers
 {
-    [SessionTimeout]
+/*    [SessionTimeout]*/
     public class BuyController : Controller
     {
         private ICartService cartService;
@@ -35,7 +35,7 @@ namespace MRSTWEb.Controllers
         }
 
         [Authorize]
-        [SessionTimeout]
+     /*   [SessionTimeout]*/
         public ActionResult SuccessfullOrder()
         {
             string userId = User.Identity.GetUserId();
@@ -81,7 +81,7 @@ namespace MRSTWEb.Controllers
         }
         [HttpPost]
         [Authorize]
-        [SessionTimeout]
+     /*   [SessionTimeout]*/
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Checkout(OrderViewModel model)
         {
